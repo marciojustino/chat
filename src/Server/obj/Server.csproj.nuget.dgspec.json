@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/h4ck3r/workspace/personal/chat/src/Server/Server.csproj": {}
+    "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/Server.csproj": {}
   },
   "projects": {
-    "/Users/h4ck3r/workspace/personal/chat/src/Server/Server.csproj": {
+    "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/h4ck3r/workspace/personal/chat/src/Server/Server.csproj",
+        "projectUniqueName": "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/Server.csproj",
         "projectName": "Server",
-        "projectPath": "/Users/h4ck3r/workspace/personal/chat/src/Server/Server.csproj",
-        "packagesPath": "/Users/h4ck3r/.nuget/packages/",
-        "outputPath": "/Users/h4ck3r/workspace/personal/chat/src/Server/obj/",
+        "projectPath": "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/Server.csproj",
+        "packagesPath": "/home/h4ck3r/.nuget/packages/",
+        "outputPath": "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/h4ck3r/.nuget/NuGet/NuGet.Config"
+          "/home/h4ck3r/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -50,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.301/RuntimeIdentifierGraph.json"
         }
       }
     }

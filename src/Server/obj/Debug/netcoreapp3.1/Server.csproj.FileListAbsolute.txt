@@ -22,3 +22,16 @@
 /Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.dll
 /Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.pdb
 /Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.genruntimeconfig.cache
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.deps.json
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.runtimeconfig.json
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.runtimeconfig.dev.json
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.dll
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.pdb
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.csprojAssemblyReference.cache
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.AssemblyInfoInputs.cache
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.AssemblyInfo.cs
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.csproj.CoreCompileInputs.cache
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.dll
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.pdb
+/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.genruntimeconfig.cache

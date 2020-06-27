@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hzVvmMpxNTCkzI1KB0cWfDh2eNCdb+0UtH2qylqU0oBHPjTKRzV1SC0CuW/V+SmSXKNZMwyn6yAeL86mdQRxjg==",
+  "dgSpecHash": "c5nHhm+SurTYpP+/zGkKNTfeDShNYM/xeOC8TN31ybqBG86FZW1sKsS2B2bfhnDThZIAyZNMsELlwx7DO6/GcA==",
   "success": true,
-  "projectFilePath": "/Users/h4ck3r/workspace/personal/chat/src/Server/Server.csproj",
+  "projectFilePath": "/media/h4ck3r/01D5ABAD048B7D40/workspace/personal/chat/src/Server/Server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

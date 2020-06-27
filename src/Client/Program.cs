@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Client
 {
     class Program
     {
-        static async System.Threading.Tasks.Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Bem vindo ao cliente de chat room");
 
@@ -14,10 +15,10 @@ namespace Client
                 serverPort = int.Parse(args[0]);
             }
 
-            var clientHandler = new ClientHandle();
+            var clientControl = new ClientControl();
             try
             {
-                await clientHandler.ConnectAsync(serverPort);
+                await clientControl.Connect(serverPort);
             }
             catch (Exception ex)
             {
@@ -25,23 +26,44 @@ namespace Client
                 Exit();
             }
 
+            Console.WriteLine("Welcome to our chat server. Please provide a nickname");
+            var nickname = Console.ReadLine();
+
             try
             {
-                Console.WriteLine("Welcome to our chat server. Please provide a nickname");
-                var nickname = Console.ReadLine();
-                await clientHandler.SendMessage(nickname);
+                clientControl.SendMessage(nickname);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Can't send your message|Error={0}", ex.Message);
                 Exit();
             }
+
+            Console.WriteLine("Your are registred as {0}. Joining #general", nickname);
+
+            var msg = string.Empty;
+            do
+            {
+                msg = Console.ReadLine();
+
+                try
+                {
+                    clientControl.SendMessage(msg);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Can't send your message|Error={0}", ex.Message);
+                }
+
+            } while (msg != "/exit");
+
+            Console.WriteLine("See you later. Bye!");
+            Console.ReadKey();
+            Exit();
         }
 
         static void Exit()
         {
-            Console.Write("Chat ends");
-            Console.ReadLine();
             System.Environment.Exit(0);
         }
     }
