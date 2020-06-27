@@ -17,7 +17,6 @@ namespace Server.Services
             _clientSocket = clientSocket;
             _clNo = clNo;
             _clientsList = clientsList;
-
             Task.Factory.StartNew(DoChat);
         }
 
@@ -32,16 +31,16 @@ namespace Server.Services
                 try
                 {
                     requestCount++;
-                    bytesFrom = new byte[10025];
                     var networkStream = _clientSocket.GetStream();
+                    bytesFrom = new byte[_clientSocket.ReceiveBufferSize];
                     networkStream.Read(bytesFrom, 0, _clientSocket.ReceiveBufferSize);
                     dataFromClient = Encoding.ASCII.GetString(bytesFrom);
-                    dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
+                    var idxEndStream = dataFromClient.IndexOf("$");
+                    dataFromClient = dataFromClient.Substring(0, Math.Max(idxEndStream, 0));
                     Console.WriteLine("From client {0}:", _clNo, dataFromClient);
-                    
                     ServerHandler.Broadcast(dataFromClient, _clNo, true);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }

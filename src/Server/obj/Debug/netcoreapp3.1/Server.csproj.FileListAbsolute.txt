@@ -10,3 +10,15 @@
 /Users/marciojustino/workspace/personal/take/chat/src/Server/obj/Debug/netcoreapp3.1/Server.dll
 /Users/marciojustino/workspace/personal/take/chat/src/Server/obj/Debug/netcoreapp3.1/Server.pdb
 /Users/marciojustino/workspace/personal/take/chat/src/Server/obj/Debug/netcoreapp3.1/Server.genruntimeconfig.cache
+/Users/h4ck3r/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.deps.json
+/Users/h4ck3r/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.runtimeconfig.json
+/Users/h4ck3r/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.runtimeconfig.dev.json
+/Users/h4ck3r/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.dll
+/Users/h4ck3r/workspace/personal/chat/src/Server/bin/Debug/netcoreapp3.1/Server.pdb
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.csprojAssemblyReference.cache
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.AssemblyInfoInputs.cache
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.AssemblyInfo.cs
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.csproj.CoreCompileInputs.cache
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.dll
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.pdb
+/Users/h4ck3r/workspace/personal/chat/src/Server/obj/Debug/netcoreapp3.1/Server.genruntimeconfig.cache
