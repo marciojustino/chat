@@ -8,7 +8,6 @@ namespace Server.Enum
         Help,
         List,
         Pvt,
-        Close,
         Direct
     }
 }

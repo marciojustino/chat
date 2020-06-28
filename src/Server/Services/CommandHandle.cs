@@ -17,12 +17,11 @@ namespace Server.Services
             {
                 new Command { Name = "/new", Description="Criar nova sala de bate papo", Example="/new {room}", Type=CommandEnum.New},
                 new Command { Name = "/enter", Description="Entrar na sala de bate papo", Example="/enter {room}", Type=CommandEnum.Enter},
-                new Command { Name = "/exit", Description="Sair da sala de bate papo", Example="/exit", Type=CommandEnum.Exit},
+                new Command { Name = "/exit", Description="Sair do bate papo", Example="/exit", Type=CommandEnum.Exit},
                 new Command { Name = "/help", Description="Lista comandos disponíveis", Example="/help", Type=CommandEnum.Help},
                 new Command { Name = "/list", Description="Lista todas as salas disponíveis", Example="/list", Type=CommandEnum.List},
                 new Command { Name = "@", Description="Envia mensagem direta para usuário", Example="@{nickname} hello!", Type=CommandEnum.Direct},
                 new Command { Name = "/p", Description="Envia mensagem privada para um usuário", Example="/p @{nickname}", Type=CommandEnum.Pvt},
-                new Command { Name= "/close", Description="Sair da aplicação", Example="/close", Type=CommandEnum.Close}
             };
         }
 

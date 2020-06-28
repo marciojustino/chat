@@ -47,7 +47,7 @@ namespace Client
             {
                 msg = Console.ReadLine();
 
-                if (msg == "/close")
+                if (msg == "/exit")
                 {
                     break;
                 }
@@ -61,7 +61,7 @@ namespace Client
                     Console.WriteLine("Can't send your message|Error={0}", ex.Message);
                 }
 
-            } while (msg != "/close");
+            } while (msg != "/exit");
 
             Console.WriteLine("See you later. Bye!");
             Thread.Sleep(3000);
