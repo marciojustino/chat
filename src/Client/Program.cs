@@ -5,6 +5,8 @@ namespace Client
 {
     class Program
     {
+        private static ClientControl _clientControl;
+
         static async Task Main(string[] args)
         {
             Console.WriteLine("Bem vindo ao cliente de chat room");
@@ -15,10 +17,10 @@ namespace Client
                 serverPort = int.Parse(args[0]);
             }
 
-            var clientControl = new ClientControl();
+            _clientControl = new ClientControl();
             try
             {
-                await clientControl.Connect(serverPort);
+                await _clientControl.Connect(serverPort);
             }
             catch (Exception ex)
             {
@@ -31,15 +33,13 @@ namespace Client
 
             try
             {
-                clientControl.SendMessage(nickname);
+                _clientControl.SendMessage(nickname);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Can't send your message|Error={0}", ex.Message);
+                Console.WriteLine("Can't define your nickname|Error={0}", ex.Message);
                 Exit();
             }
-
-            Console.WriteLine("Your are registred as {0}. Joining #general", nickname);
 
             var msg = string.Empty;
             do
@@ -48,7 +48,7 @@ namespace Client
 
                 try
                 {
-                    clientControl.SendMessage(msg);
+                    _clientControl.SendMessage(msg);
                 }
                 catch (Exception ex)
                 {

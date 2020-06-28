@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Server.Enum;
+using Server.Entities;
 
 namespace Server.Services
 {
@@ -11,12 +11,12 @@ namespace Server.Services
         {
             _commands = new List<string>
             {
-                CommandEnum.CREATE_ROOM,
-                CommandEnum.ENTER_ROOM,
-                CommandEnum.EXIT,
-                CommandEnum.HELP,
-                CommandEnum.LIST_ROOMS,
-                CommandEnum.SEND_PRIVATE_MESSAGE
+                Command.CREATE_ROOM,
+                Command.ENTER_ROOM,
+                Command.EXIT,
+                Command.HELP,
+                Command.LIST_ROOMS,
+                Command.SEND_PRIVATE_MESSAGE
             };
         }
 

@@ -1,6 +1,6 @@
-namespace Server.Enum
+namespace Server.Entities
 {
-    public class CommandEnum
+    public class Command
     {
         public static string HELP { get => "/help"; }
         public static string SEND_PRIVATE_MESSAGE { get => "/p"; }

@@ -8,8 +8,8 @@ namespace Client
 {
     public class ClientControl
     {
-        private static TcpClient _clientSocket;
-        private static NetworkStream _serverStream;
+        private TcpClient _clientSocket;
+        private NetworkStream _serverStream;
 
         public ClientControl()
         {
@@ -28,10 +28,10 @@ namespace Client
             _serverStream.Write(outStream, 0, outStream.Length);
             _serverStream.Flush();
 
-            Task.Factory.StartNew(HandleReceiveMsg);
+            Task.Factory.StartNew(HandleReceivedMessage);
         }
 
-        private void HandleReceiveMsg()
+        private void HandleReceivedMessage()
         {
             while (true)
             {
@@ -50,7 +50,7 @@ namespace Client
         {
             if (!string.IsNullOrWhiteSpace(dataFromServer))
             {
-                Console.WriteLine("From server: {0}", dataFromServer);
+                Console.WriteLine($">> {dataFromServer}");
             }
         }
     }

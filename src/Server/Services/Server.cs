@@ -3,6 +3,8 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Server.Entities;
+using Server.Enum;
 
 namespace Server.Services
 {
@@ -41,31 +43,64 @@ namespace Server.Services
                 int idxEndStream = dataFromClient.IndexOf("$");
                 dataFromClient = dataFromClient.Substring(0, Math.Max(idxEndStream, 0));
 
-                _clientsList.Add(dataFromClient, clientSocket);
+                if (NicknameExists(dataFromClient))
+                {
+                    ReplyToClient("Sorry, the nickname takeuser is already taken. Please choose a different one:", clientSocket);
+                    clientSocket.Client.Disconnect(false);
+                    clientSocket.Close();
+                }
+                else
+                {
+                    var client = new Client
+                    {
+                        ConnectedAt = DateTime.Now,
+                        Nickname = dataFromClient,
+                        Socket = clientSocket,
+                        Status = StatusEnum.ValidNickname
+                    };
+                    _clientsList.Add(dataFromClient, client);
 
-                Broadcast($"{dataFromClient} joined", dataFromClient, false);
-                Console.WriteLine($"{dataFromClient} joined");
+                    ReplyToClient($"*** You are registered as {client.Nickname}. Joining #general.", clientSocket);
+                    Broadcast($"{client.Nickname} joined", client.Nickname, false);
 
-                var clientHandle = new ClientHandle();
-                clientHandle.Start(clientSocket, dataFromClient, _clientsList);
+                    Console.WriteLine($"{client.Nickname} connected");
+
+                    var clientHandle = new ClientHandle();
+                    clientHandle.Start(client, _clientsList);
+                }
             }
         }
 
-        public static void Broadcast(string msg, string uName, bool isFromClient)
+        private void ReplyToClient(string message, TcpClient clientSocket)
         {
-            foreach (DictionaryEntry client in _clientsList)
+            SendClientMessage(message, null, false, clientSocket);
+        }
+
+        private bool NicknameExists(string dataFromClient)
+        {
+            return _clientsList.ContainsKey(dataFromClient);
+        }
+
+        public static void Broadcast(string msg, string nickname, bool isFromClient)
+        {
+            foreach (DictionaryEntry clientKeyValue in _clientsList)
             {
-                var clientSocket = client.Value as TcpClient;
-                var deliveryStream = clientSocket.GetStream();
-
-                var broadcastBytes = isFromClient
-                    ? Encoding.ASCII.GetBytes($"{uName} says: {msg}$")
-                    : Encoding.ASCII.GetBytes($"{msg}$");
-
-                clientSocket.ReceiveBufferSize = broadcastBytes.Length;
-                deliveryStream.Write(broadcastBytes, 0, broadcastBytes.Length);
-                deliveryStream.Flush();
+                var client = clientKeyValue.Value as Client;
+                SendClientMessage(msg, nickname, isFromClient, client.Socket);
             }
+        }
+
+        private static void SendClientMessage(string msg, string nickname, bool isFromClient, TcpClient clientSocket)
+        {
+            var deliveryStream = clientSocket.GetStream();
+
+            var broadcastBytes = isFromClient
+                ? Encoding.ASCII.GetBytes($"{nickname} says: {msg}$")
+                : Encoding.ASCII.GetBytes($"{msg}$");
+
+            clientSocket.ReceiveBufferSize = broadcastBytes.Length;
+            deliveryStream.Write(broadcastBytes, 0, broadcastBytes.Length);
+            deliveryStream.Flush();
         }
     }
 }
