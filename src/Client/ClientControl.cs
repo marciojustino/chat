@@ -8,8 +8,8 @@ namespace Client
 {
     public class ClientControl
     {
-        private TcpClient _clientSocket;
-        private NetworkStream _serverStream;
+        private static TcpClient _clientSocket;
+        private static NetworkStream _serverStream;
 
         public ClientControl()
         {

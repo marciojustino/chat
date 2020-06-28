@@ -26,7 +26,7 @@ namespace Server.Services
         public void Start()
         {
             _serverSocket.Start();
-            Console.WriteLine("Chat server start listening on //{0}:{1}", _ipAddress, _port);
+            Console.WriteLine($"Chat server start listening on //{_ipAddress}:{_port}");
 
             while (true)
             {
@@ -43,8 +43,8 @@ namespace Server.Services
 
                 _clientsList.Add(dataFromClient, clientSocket);
 
-                Broadcast(string.Format("{0} Joined", dataFromClient), dataFromClient, false);
-                Console.WriteLine("{0} joined chat room", dataFromClient);
+                Broadcast($"{dataFromClient} joined", dataFromClient, false);
+                Console.WriteLine($"{dataFromClient} joined");
 
                 var clientHandle = new ClientHandle();
                 clientHandle.Start(clientSocket, dataFromClient, _clientsList);
@@ -59,9 +59,10 @@ namespace Server.Services
                 var deliveryStream = clientSocket.GetStream();
 
                 var broadcastBytes = isFromClient
-                    ? Encoding.ASCII.GetBytes(string.Format("{0} says: {1}", uName, msg))
-                    : Encoding.ASCII.GetBytes(msg);
+                    ? Encoding.ASCII.GetBytes($"{uName} says: {msg}$")
+                    : Encoding.ASCII.GetBytes($"{msg}$");
 
+                clientSocket.ReceiveBufferSize = broadcastBytes.Length;
                 deliveryStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 deliveryStream.Flush();
             }
