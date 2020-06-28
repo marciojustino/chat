@@ -14,7 +14,7 @@ namespace Server.Services
         private readonly IPAddress _ipAddress;
         private static Hashtable _clientsList;
         private readonly TcpListener _serverSocket;
-        private readonly ChatControl _chatControl;
+        private readonly CommandHandle _chatControl;
 
         public Server(int port)
         {
@@ -22,7 +22,7 @@ namespace Server.Services
             _ipAddress = IPAddress.Parse("127.0.0.1");
             _clientsList = new Hashtable();
             _serverSocket = new TcpListener(_ipAddress, _port);
-            _chatControl = new ChatControl();
+            _chatControl = new CommandHandle();
         }
 
         public void Start()
@@ -45,7 +45,7 @@ namespace Server.Services
 
                 if (NicknameExists(dataFromClient))
                 {
-                    ReplyToClient("Sorry, the nickname takeuser is already taken. Please choose a different one:", clientSocket);
+                    SendMessage("Sorry, the nickname takeuser is already taken. Please choose a different one:", clientSocket);
                     clientSocket.Client.Disconnect(false);
                     clientSocket.Close();
                 }
@@ -60,7 +60,7 @@ namespace Server.Services
                     };
                     _clientsList.Add(dataFromClient, client);
 
-                    ReplyToClient($"*** You are registered as {client.Nickname}. Joining #general.", clientSocket);
+                    SendMessage($"*** You are registered as {client.Nickname}. Joining #general.", clientSocket);
                     Broadcast($"{client.Nickname} joined", client.Nickname, false);
 
                     Console.WriteLine($"{client.Nickname} connected");
@@ -71,9 +71,14 @@ namespace Server.Services
             }
         }
 
-        private void ReplyToClient(string message, TcpClient clientSocket)
+        public static void Disconnect(Client client)
         {
-            SendClientMessage(message, null, false, clientSocket);
+            if (_clientsList.ContainsKey(client.Nickname))
+            {
+                _clientsList.Remove(client.Nickname);
+                client.Socket.Client.Disconnect(false);
+                client.Socket.Close();
+            }
         }
 
         private bool NicknameExists(string dataFromClient)
@@ -81,23 +86,38 @@ namespace Server.Services
             return _clientsList.ContainsKey(dataFromClient);
         }
 
-        public static void Broadcast(string msg, string nickname, bool isFromClient)
+        public static void Broadcast(string msg, string senderNickname, bool isFromClient)
         {
             foreach (DictionaryEntry clientKeyValue in _clientsList)
             {
                 var client = clientKeyValue.Value as Client;
-                SendClientMessage(msg, nickname, isFromClient, client.Socket);
+                var newMsg = isFromClient
+                    ? $"{senderNickname} says: {msg}"
+                    : $"{msg}";
+
+                SendMessage(newMsg, client.Socket);
             }
         }
 
-        private static void SendClientMessage(string msg, string nickname, bool isFromClient, TcpClient clientSocket)
+        public static void Broadcast(string msg, string senderNickname, string destinyNickName, bool isFromClient)
         {
+            foreach (DictionaryEntry clientKeyValue in _clientsList)
+            {
+                var client = clientKeyValue.Value as Client;
+                SendMessage($"{senderNickname} says to {destinyNickName}: {msg}", client.Socket);
+            }
+        }
+
+        public static void SendPvtMessage(string msg, string senderNickname, string destinyNickname)
+        {
+            var deliveryTo = _clientsList[destinyNickname] as Client;
+            SendMessage($"{senderNickname} says privately to {destinyNickname}: {msg}", deliveryTo.Socket);
+        }
+
+        public static void SendMessage(string msg, TcpClient clientSocket)
+        {
+            var broadcastBytes = Encoding.ASCII.GetBytes($"{msg}$");
             var deliveryStream = clientSocket.GetStream();
-
-            var broadcastBytes = isFromClient
-                ? Encoding.ASCII.GetBytes($"{nickname} says: {msg}$")
-                : Encoding.ASCII.GetBytes($"{msg}$");
-
             clientSocket.ReceiveBufferSize = broadcastBytes.Length;
             deliveryStream.Write(broadcastBytes, 0, broadcastBytes.Length);
             deliveryStream.Flush();

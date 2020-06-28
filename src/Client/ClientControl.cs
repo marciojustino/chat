@@ -42,6 +42,9 @@ namespace Client
                 var dataFromServer = Encoding.ASCII.GetString(inStream);
                 var idxEndStream = dataFromServer.IndexOf("$");
                 dataFromServer = dataFromServer.Substring(0, Math.Max(idxEndStream, 0));
+
+                // TODO: Handle close command here too
+
                 ShowMessage(dataFromServer);
             }
         }

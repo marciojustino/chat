@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading;
+using System;
 using System.Threading.Tasks;
 
 namespace Client
@@ -46,6 +47,11 @@ namespace Client
             {
                 msg = Console.ReadLine();
 
+                if (msg == "/close")
+                {
+                    break;
+                }
+
                 try
                 {
                     _clientControl.SendMessage(msg);
@@ -55,10 +61,10 @@ namespace Client
                     Console.WriteLine("Can't send your message|Error={0}", ex.Message);
                 }
 
-            } while (msg != "/exit");
+            } while (msg != "/close");
 
             Console.WriteLine("See you later. Bye!");
-            Console.ReadKey();
+            Thread.Sleep(3000);
             Exit();
         }
 
