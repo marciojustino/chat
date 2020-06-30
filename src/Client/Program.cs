@@ -1,27 +1,66 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Net;
+using System.Threading;
 using System;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Chat.Client
 {
     class Program
     {
-        private static ClientControl _clientControl;
+        private static Client _clientControl;
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Bem vindo ao cliente de chat room");
-
-            int serverPort = 8888;
-            if (args.Length > 0)
+            Console.Write("--args: [");
+            foreach (var arg in args)
             {
-                serverPort = int.Parse(args[0]);
+                Console.Write($"{arg},");
+            }
+            Console.WriteLine("]");
+
+            Console.WriteLine("Welcome to chat room. Glad to see you :=D");
+
+            if (args.Length != 2)
+            {
+                Console.WriteLine("Provide the host and port args to connect to chat server. <IP> <PORT>");
+                Exit();
             }
 
-            _clientControl = new ClientControl();
+            IPAddress hostAddress = null;
             try
             {
-                await _clientControl.Connect(serverPort);
+                hostAddress = IPAddress.Parse(args[0]);
+            }
+            catch
+            {
+                try
+                {
+                    var host = Dns.GetHostEntry(args[0]);
+                    hostAddress = host.AddressList[0];
+                }
+                catch
+                {
+                    Console.WriteLine("Host IP Address invalid! Provide a valid IP for server.");
+                    Exit();
+                }
+            }
+
+            int port = 0;
+            try
+            {
+                port = int.Parse(args[1]);
+            }
+            catch
+            {
+                Console.WriteLine("Port number invalid! Provide a valid TCP port for server.");
+                Exit();
+            }
+
+            _clientControl = new Client();
+            try
+            {
+                await _clientControl.Connect(hostAddress, port);
             }
             catch (Exception ex)
             {

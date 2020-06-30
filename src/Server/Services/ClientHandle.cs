@@ -2,16 +2,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.Collections;
-using Server.Entities;
+using Chat.Server.Entities;
 
-namespace Server.Services
+namespace Chat.Server.Services
 {
     public class ClientHandle
     {
-        private Client _client;
+        private ClientModel _client;
         private Hashtable _clientsList;
 
-        public void Start(Client client, Hashtable clientsList)
+        public void Start(ClientModel client, Hashtable clientsList)
         {
             _client = client;
             _clientsList = clientsList;

@@ -1,4 +1,4 @@
-namespace Server.Enum
+namespace Chat.Server.Enum
 {
     public enum StatusEnum
     {

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Server.Entities;
-using Server.Enum;
+using Chat.Server.Entities;
+using Chat.Server.Enum;
+using Chat.Server.Services;
 
-namespace Server.Services
+namespace Chat.Server
 {
     public class Server
     {
@@ -16,10 +17,10 @@ namespace Server.Services
         private readonly TcpListener _serverSocket;
         private readonly CommandHandle _chatControl;
 
-        public Server(int port)
+        public Server(IPAddress hostAddress, int port)
         {
             _port = port;
-            _ipAddress = IPAddress.Parse("127.0.0.1");
+            _ipAddress = hostAddress;
             _clientsList = new Hashtable();
             _serverSocket = new TcpListener(_ipAddress, _port);
             _chatControl = new CommandHandle();
@@ -51,7 +52,7 @@ namespace Server.Services
                 }
                 else
                 {
-                    var client = new Client
+                    var client = new ClientModel
                     {
                         ConnectedAt = DateTime.Now,
                         Nickname = dataFromClient,
@@ -71,7 +72,7 @@ namespace Server.Services
             }
         }
 
-        public static void Disconnect(Client client)
+        public static void Disconnect(ClientModel client)
         {
             if (_clientsList.ContainsKey(client.Nickname))
             {
@@ -90,7 +91,7 @@ namespace Server.Services
         {
             foreach (DictionaryEntry clientKeyValue in _clientsList)
             {
-                var client = clientKeyValue.Value as Client;
+                var client = clientKeyValue.Value as ClientModel;
                 var newMsg = isFromClient
                     ? $"{senderNickname} says: {msg}"
                     : $"{msg}";
@@ -103,14 +104,14 @@ namespace Server.Services
         {
             foreach (DictionaryEntry clientKeyValue in _clientsList)
             {
-                var client = clientKeyValue.Value as Client;
+                var client = clientKeyValue.Value as ClientModel;
                 SendMessage($"{senderNickname} says to {destinyNickName}: {msg}", client.Socket);
             }
         }
 
         public static void SendPvtMessage(string msg, string senderNickname, string destinyNickname)
         {
-            var deliveryTo = _clientsList[destinyNickname] as Client;
+            var deliveryTo = _clientsList[destinyNickname] as ClientModel;
             SendMessage($"{senderNickname} says privately to {destinyNickname}: {msg}", deliveryTo.Socket);
         }
 

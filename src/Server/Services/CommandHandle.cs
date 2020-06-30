@@ -1,31 +1,31 @@
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Collections.Generic;
-using Server.Entities;
-using Server.Enum;
+using Chat.Server.Entities;
+using Chat.Server.Enum;
 
-namespace Server.Services
+namespace Chat.Server.Services
 {
     public class CommandHandle
     {
-        private readonly List<Command> _commands;
+        private readonly List<CommandModel> _commands;
         private List<string> _rooms;
 
         public CommandHandle()
         {
-            _commands = new List<Command>
+            _commands = new List<CommandModel>
             {
-                new Command { Name = "/new", Description="Criar nova sala de bate papo", Example="/new {room}", Type=CommandEnum.New},
-                new Command { Name = "/enter", Description="Entrar na sala de bate papo", Example="/enter {room}", Type=CommandEnum.Enter},
-                new Command { Name = "/exit", Description="Sair do bate papo", Example="/exit", Type=CommandEnum.Exit},
-                new Command { Name = "/help", Description="Lista comandos disponíveis", Example="/help", Type=CommandEnum.Help},
-                new Command { Name = "/list", Description="Lista todas as salas disponíveis", Example="/list", Type=CommandEnum.List},
-                new Command { Name = "@", Description="Envia mensagem direta para usuário", Example="@{nickname} hello!", Type=CommandEnum.Direct},
-                new Command { Name = "/p", Description="Envia mensagem privada para um usuário", Example="/p @{nickname}", Type=CommandEnum.Pvt},
+                new CommandModel { Name = "/new", Description="Criar nova sala de bate papo", Example="/new {room}", Type=CommandEnum.New},
+                new CommandModel { Name = "/enter", Description="Entrar na sala de bate papo", Example="/enter {room}", Type=CommandEnum.Enter},
+                new CommandModel { Name = "/exit", Description="Sair do bate papo", Example="/exit", Type=CommandEnum.Exit},
+                new CommandModel { Name = "/help", Description="Lista comandos disponíveis", Example="/help", Type=CommandEnum.Help},
+                new CommandModel { Name = "/list", Description="Lista todas as salas disponíveis", Example="/list", Type=CommandEnum.List},
+                new CommandModel { Name = "@", Description="Envia mensagem direta para usuário", Example="@{nickname} hello!", Type=CommandEnum.Direct},
+                new CommandModel { Name = "/p", Description="Envia mensagem privada para um usuário", Example="/p @{nickname}", Type=CommandEnum.Pvt},
             };
         }
 
-        public Command ExtractCommand(string dataFromClient)
+        public CommandModel ExtractCommand(string dataFromClient)
         {
             var match = Regex.Match(dataFromClient, @"^(\/\w+|@)");
             var foundCommand = _commands.Find(c => c.Name.Equals(match.Value));
@@ -39,7 +39,7 @@ namespace Server.Services
             }
         }
 
-        internal void ExecuteCommand(Command command, string sendMessage, Client client)
+        internal void ExecuteCommand(CommandModel command, string sendMessage, ClientModel client)
         {
             if (command.Type == CommandEnum.Pvt)
             {
@@ -75,7 +75,7 @@ namespace Server.Services
             }
         }
 
-        private void SendHelpCommand(Client client)
+        private void SendHelpCommand(ClientModel client)
         {
             var sb = new StringBuilder();
             sb.AppendLine("*** Lista de commandos");

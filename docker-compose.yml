@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+    server:
+        build:
+            context: ./src/Server
+            dockerfile: dockerfile
+        env_file: .env
+        ports:
+            - ${PORT}:${PORT}
+        entrypoint: "dotnet Server.dll ${HOST} ${PORT}"
+        networks:
+            - chat_net
+
+    # client:
+    #     build:
+    #         context: ./src/Client
+    #         dockerfile: dockerfile
+    #     env_file: .env
+    #     entrypoint: "dotnet Client.dll ${HOST} ${PORT}"
+    #     links:
+    #         - server
+    #     networks:
+    #         - chat_net
+
+networks:
+    chat_net:

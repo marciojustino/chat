@@ -1,8 +1,8 @@
-using Server.Enum;
+using Chat.Server.Enum;
 
-namespace Server.Entities
+namespace Chat.Server.Entities
 {
-    public class Command
+    public class CommandModel
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -1,14 +1,13 @@
 using System;
-using System.Net;
 using System.Net.Sockets;
-using Server.Enum;
+using Chat.Server.Enum;
 
-namespace Server.Entities
+namespace Chat.Server.Entities
 {
-    public class Client
+    public class ClientModel
     {
         public StatusEnum Status { get; set; }
-        public Command LastCommand { get; set; }
+        public CommandModel LastCommand { get; set; }
         public string Nickname { get; set; }
         public DateTime ConnectedAt { get; set; }
         public TcpClient Socket { get; set; }

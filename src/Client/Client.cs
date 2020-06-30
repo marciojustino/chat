@@ -4,21 +4,21 @@ using System.Net;
 using System;
 using System.Net.Sockets;
 
-namespace Client
+namespace Chat.Client
 {
-    public class ClientControl
+    public class Client
     {
         private TcpClient _clientSocket;
         private NetworkStream _serverStream;
 
-        public ClientControl()
+        public Client()
         {
             _clientSocket = new TcpClient();
         }
 
-        public Task Connect(int serverPort)
+        public Task Connect(IPAddress hostAddress, int serverPort)
         {
-            return _clientSocket.ConnectAsync(IPAddress.Parse("127.0.0.1"), serverPort);
+            return _clientSocket.ConnectAsync(hostAddress, serverPort);
         }
 
         public void SendMessage(string msg)
