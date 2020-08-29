@@ -10,7 +10,7 @@ namespace Client
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Bem vindo ao cliente de chat room");
+            Console.WriteLine("Welcome to chat room client! Follow the white rabbit...");
 
             int serverPort = 8888;
             if (args.Length > 0)
